@@ -1,66 +1,64 @@
-import Image from "next/image";
+import { ScheduleViewerWithModals } from "./ScheduleViewerWithModals";
+import { DatePicker } from "@/components/DatePicker";
+import prisma from "@/lib/prisma";
 import styles from "./page.module.css";
 
-export default function Home() {
+interface PageProps {
+  searchParams: Promise<{ date?: string }>;
+}
+
+export default async function Home({ searchParams }: PageProps) {
+  const params = await searchParams;
+
+  // URL 파라미터에서 날짜 가져오기 (없으면 2025-09-10 기본값)
+  const dateParam = params.date || "2025-09-10";
+  const targetDate = new Date(dateParam);
+  targetDate.setHours(0, 0, 0, 0);
+
+  const nextDay = new Date(targetDate);
+  nextDay.setDate(nextDay.getDate() + 1);
+
+  const schedules = await prisma.schedule.findMany({
+    where: {
+      date: {
+        gte: targetDate,
+        lt: nextDay,
+      },
+    },
+    select: {
+      id: true,
+      date: true,
+      startTimeMinutes: true,
+      endTimeMinutes: true,
+      type: true,
+      title: true,
+      description: true,
+      categoryId: true,
+      customColor: true,
+      layer: true,
+      zIndex: true,
+      planId: true,
+      completed: true,
+      createdAt: true,
+      updatedAt: true,
+      category: true,
+      plan: true,
+      executions: true,
+    },
+    orderBy: [{ startTimeMinutes: "asc" }, { layer: "asc" }],
+  });
+
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      <header className={styles.header}>
+        <h1 className={styles.title}>하루 계획표</h1>
+      </header>
+
+      <DatePicker currentDate={targetDate} />
+
+      <div className={styles.gridContainer}>
+        <ScheduleViewerWithModals schedules={schedules} date={targetDate} />
+      </div>
     </div>
   );
 }

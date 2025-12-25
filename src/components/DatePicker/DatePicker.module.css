@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+  gap: 16px;
+}
+
+.todayButton {
+  padding: 10px 18px;
+  background-color: #ffffff;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.todayButton:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navButton {
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.navButton:active {
+  transform: scale(0.95);
+}
+
+.dateInput {
+  padding: 10px 16px;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #212529;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-width: 160px;
+}
+
+.dateInput:hover {
+  border-color: #5a67d8;
+  background-color: #f8f9fa;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #4c51bf;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.dateDisplay {
+  font-size: 15px;
+  font-weight: 600;
+  color: #495057;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navigation {
+    order: 1;
+    width: 100%;
+  }
+
+  .todayButton {
+    order: 2;
+  }
+
+  .dateDisplay {
+    order: 3;
+    width: 100%;
+    text-align: center;
+  }
+}
+
