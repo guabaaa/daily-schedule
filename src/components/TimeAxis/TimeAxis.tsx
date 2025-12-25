@@ -9,7 +9,7 @@ import styles from './TimeAxis.module.css';
 interface TimeAxisProps {
   intervalMinutes?: number; // 시간 간격 (기본: 60분)
   pixelsPerMinute?: number; // 1분당 픽셀 (기본: 1)
-  scrollRef?: RefObject<HTMLDivElement>;
+  scrollRef?: RefObject<HTMLDivElement | null>;
 }
 
 export function TimeAxis({

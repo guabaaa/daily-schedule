@@ -43,7 +43,37 @@
 
 ---
 
-## 🚀 시작하기
+## 🚀 배포하기
+
+### Vercel로 배포 (추천)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/daily-schedule)
+
+1. **Vercel 계정 생성** (GitHub 연동)
+2. **Import Project** 클릭
+3. **GitHub 레포지토리 선택**
+4. **Deploy** 클릭
+5. 완료! 🎉
+
+### 로컬에서 Vercel CLI 사용
+
+```bash
+# Vercel CLI 설치
+npm i -g vercel
+
+# 로그인
+vercel login
+
+# 배포
+vercel
+
+# 프로덕션 배포
+vercel --prod
+```
+
+---
+
+## 🛠️ 로컬 개발
 
 ### 1. 의존성 설치
 

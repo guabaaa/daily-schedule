@@ -1,0 +1,6 @@
+prisma/seed.ts
+scripts/
+*.test.ts
+*.test.tsx
+__tests__/
+
